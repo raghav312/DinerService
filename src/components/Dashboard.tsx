@@ -38,16 +38,16 @@ const Dashboard: React.FC = () => {
         api.get('/logs?limit=10')
       ]);
 
-      const orders = ordersRes.data;
+      const orders = Array.isArray(ordersRes.data) ? ordersRes.data : [];
       const totalRevenue = orders.reduce((sum: number, order: any) => sum + (order.totalAmount || 0), 0);
 
       setStats({
-        customers: customersRes.data.length,
-        menuItems: menuItemsRes.data.length,
-        orders: orders.length,
-        staff: staffRes.data.length,
+        customers: Array.isArray(customersRes.data) ? customersRes.data.length : 0,
+        menuItems: Array.isArray(menuItemsRes.data) ? menuItemsRes.data.length : 0,
+        orders: Array.isArray(orders) ? orders.length : 0,
+        staff: Array.isArray(staffRes.data) ? staffRes.data.length : 0,
         totalRevenue,
-        recentActivity: logsRes.data.length
+        recentActivity: Array.isArray(logsRes.data) ? logsRes.data.length : 0
       });
     } catch (error) {
       console.error('Error loading dashboard stats:', error);

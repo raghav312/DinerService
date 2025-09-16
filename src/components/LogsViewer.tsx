@@ -51,8 +51,9 @@ const LogsViewer: React.FC<LogsViewerProps> = ({ showNotification }) => {
       if (filterAction) params.append('action', filterAction);
       if (filterTable) params.append('table', filterTable);
       
-      const response = await api.get(`/logs?${params.toString()}`);
-      setLogs(response.data);
+      const response = await api.get(`/api/logs?${params.toString()}`);
+      console.log('Fetched logs:', response.data);
+      setLogs(Array.isArray(response.data) ? response.data : []);
     } catch (error) {
       showNotification('Failed to load logs', 'error');
     } finally {
@@ -103,12 +104,13 @@ const LogsViewer: React.FC<LogsViewerProps> = ({ showNotification }) => {
     setFilterSuccess('');
   };
 
-  const filteredLogs = logs.filter(log => {
+  const filteredLogs = Array.isArray(logs) ? logs.filter(log => {
     if (filterSuccess !== '') {
       return log.success === (filterSuccess === 'true');
     }
     return true;
-  });
+  }) : [];
+
 
   return (
     <div className="space-y-6">
