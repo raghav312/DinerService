@@ -48,7 +48,7 @@ const OrdersManager: React.FC<OrdersManagerProps> = ({ showNotification }) => {
     try {
       setLoading(true);
       const response = await api.get('/orders');
-      setOrders(response.data);
+      setOrders(Array.isArray(response) ? response : []);
     } catch (error) {
       showNotification('Failed to load orders', 'error');
     } finally {
@@ -59,7 +59,7 @@ const OrdersManager: React.FC<OrdersManagerProps> = ({ showNotification }) => {
   const loadCustomers = async () => {
     try {
       const response = await api.get('/customers');
-      setCustomers(response.data);
+      setCustomers(Array.isArray(response) ? response : []);
     } catch (error) {
       console.error('Failed to load customers', error);
     }

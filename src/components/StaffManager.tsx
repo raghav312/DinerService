@@ -44,7 +44,7 @@ const StaffManager: React.FC<StaffManagerProps> = ({ showNotification }) => {
     try {
       setLoading(true);
       const response = await api.get('/staff');
-      setStaff(response.data);
+      setStaff(Array.isArray(response) ? response : []);
     } catch (error) {
       showNotification('Failed to load staff', 'error');
     } finally {

@@ -51,9 +51,9 @@ const LogsViewer: React.FC<LogsViewerProps> = ({ showNotification }) => {
       if (filterAction) params.append('action', filterAction);
       if (filterTable) params.append('table', filterTable);
       
-      const response = await api.get(`/api/logs?${params.toString()}`);
+      const response = await api.get(`/logs?${params.toString()}`);
       console.log('Fetched logs:', response.data);
-      setLogs(Array.isArray(response.data) ? response.data : []);
+      setLogs(Array.isArray(response) ? response : []);
     } catch (error) {
       showNotification('Failed to load logs', 'error');
     } finally {
@@ -64,7 +64,7 @@ const LogsViewer: React.FC<LogsViewerProps> = ({ showNotification }) => {
   const loadStats = async () => {
     try {
       const response = await api.get('/logs/stats');
-      setStats(response.data);
+      setStats(response);
     } catch (error) {
       console.error('Failed to load stats', error);
     }

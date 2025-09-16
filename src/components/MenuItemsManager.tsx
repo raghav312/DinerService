@@ -42,7 +42,7 @@ const MenuItemsManager: React.FC<MenuItemsManagerProps> = ({ showNotification })
     try {
       setLoading(true);
       const response = await api.get('/menu-items');
-      setMenuItems(response.data);
+      setMenuItems(Array.isArray(response) ? response : []);
     } catch (error) {
       showNotification('Failed to load menu items', 'error');
     } finally {

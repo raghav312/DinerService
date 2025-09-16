@@ -62,7 +62,7 @@ const OrderItemsManager: React.FC<OrderItemsManagerProps> = ({ showNotification 
     try {
       setLoading(true);
       const response = await api.get('/order-items');
-      setOrderItems(Array.isArray(response.data) ? response.data : []);
+      setOrderItems(Array.isArray(response) ? response : []);
     } catch (error) {
       showNotification('Failed to load order items', 'error');
     } finally {
@@ -73,7 +73,7 @@ const OrderItemsManager: React.FC<OrderItemsManagerProps> = ({ showNotification 
   const loadOrders = async () => {
     try {
       const response = await api.get('/orders');
-      setOrders(Array.isArray(response.data) ? response.data : []);
+      setOrders(Array.isArray(response) ? response : []);
     } catch (error) {
       console.error('Failed to load orders', error);
     }
@@ -82,7 +82,7 @@ const OrderItemsManager: React.FC<OrderItemsManagerProps> = ({ showNotification 
   const loadMenuItems = async () => {
     try {
       const response = await api.get('/menu-items');
-      setMenuItems(Array.isArray(response.data) ? response.data : []);
+      setMenuItems(Array.isArray(response) ? response : []);
     } catch (error) {
       console.error('Failed to load menu items', error);
     }
@@ -91,7 +91,7 @@ const OrderItemsManager: React.FC<OrderItemsManagerProps> = ({ showNotification 
   const loadCustomers = async () => {
     try {
       const response = await api.get('/customers');
-      setCustomers(Array.isArray(response.data) ? response.data : []);
+      setCustomers(Array.isArray(response) ? response : []);
     } catch (error) {
       console.error('Failed to load customers', error);
     }

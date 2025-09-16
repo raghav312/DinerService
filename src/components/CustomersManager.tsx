@@ -37,7 +37,7 @@ const CustomersManager: React.FC<CustomersManagerProps> = ({ showNotification })
     try {
       setLoading(true);
       const response = await api.get('/customers');
-      setCustomers(response.data);
+      setCustomers(Array.isArray(response) ? response : []);
     } catch (error) {
       showNotification('Failed to load customers', 'error');
     } finally {
