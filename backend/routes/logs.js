@@ -35,7 +35,7 @@ router.get('/', async (req, res) => {
     }
     
     const { resources: logs } = await container.items.query(query).fetchAll();
-    res.json(logs);
+    res.json(Array.isArray(logs) ? logs : []);
   } catch (error) {
     console.error('Error fetching logs:', error);
     res.status(500).json({ error: 'Failed to fetch logs' });
