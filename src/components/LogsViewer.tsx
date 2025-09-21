@@ -281,6 +281,13 @@ const LogsViewer: React.FC<LogsViewerProps> = ({ showNotification }) => {
                         <strong>Error:</strong> {log.error}
                       </div>
                     )}
+
+                    {log.action === "AI_RCA" && log.result && (
+                      <div className="text-sm text-blue-800 whitespace-pre-wrap mt-2 border-l-4 border-blue-400 pl-2">
+                        <strong>RCA Analysis:</strong>
+                        <div>{log.result}</div>
+                      </div>
+                    )}
                   </div>
                   
                   <div className="text-sm text-gray-500 ml-4">

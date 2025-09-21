@@ -42,6 +42,18 @@ router.get('/', async (req, res) => {
   }
 });
 
+// Get only AI RCA logs
+router.get('/rca', async (req, res) => {
+  try {
+    const query = 'SELECT * FROM c WHERE c.action = "AI_RCA" ORDER BY c.timestamp DESC';
+    const { resources: logs } = await container.items.query(query).fetchAll();
+    res.json(Array.isArray(logs) ? logs : []);
+  } catch (error) {
+    console.error('Error fetching RCA logs:', error);
+    res.status(500).json({ error: 'Failed to fetch RCA logs' });
+  }
+});
+
 // Get log statistics
 router.get('/stats', async (req, res) => {
   try {
